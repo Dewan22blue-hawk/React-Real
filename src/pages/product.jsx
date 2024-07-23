@@ -80,7 +80,11 @@ const ProductsPage = () => {
   const handleAddToCart = (id) => {
     // const { name} = props;
     if (cart.find((item) => item.id === id)) {
-      setCart(cart.map((item) => (item.id === id ? { ...item, qty: item.qty + 1 } : item)));
+      setCart(
+        cart.map((item) =>
+          item.id === id ? { ...item, qty: item.qty + 1 } : item
+        )
+      );
     } else {
       setCart([...cart, { id, qty: 1 }]);
     }
@@ -115,9 +119,18 @@ const ProductsPage = () => {
           {products.length > 0 &&
             products.map((product) => (
               <CardProduct key={product.id}>
-                <CardProduct.Header image={product.image} id={product.id}></CardProduct.Header>
-                <CardProduct.Body name={product.title}>{product.description}</CardProduct.Body>
-                <CardProduct.Footer price={product.price} id={product.id} handleAddToCart={handleAddToCart}></CardProduct.Footer>
+                <CardProduct.Header
+                  image={product.image}
+                  id={product.id}
+                ></CardProduct.Header>
+                <CardProduct.Body name={product.title}>
+                  {product.description}
+                </CardProduct.Body>
+                <CardProduct.Footer
+                  price={product.price}
+                  id={product.id}
+                  handleAddToCart={handleAddToCart}
+                ></CardProduct.Footer>
                 {/* <CardProduct.Footer price={product.price} id={product.id} handleAddToCart={handleAddToCartRef}></CardProduct.Footer> */}
               </CardProduct>
             ))}
@@ -139,13 +152,27 @@ const ProductsPage = () => {
                   {
                     /* {cartRef.current.map((item) => { */
                   }
-                  const product = products.find((product) => product.id === item.id);
+                  const product = products.find(
+                    (product) => product.id === item.id
+                  );
                   return (
                     <tr key={item.id}>
                       <td>{product.title.substring(0, 10)}...</td>
-                      <td>$ {product.price.toLocaleString("id-ID", { styles: "currency", currency: "USD" })}</td>
+                      <td>
+                        ${" "}
+                        {product.price.toLocaleString("id-ID", {
+                          styles: "currency",
+                          currency: "USD",
+                        })}
+                      </td>
                       <td>{item.qty}</td>
-                      <td>$ {(item.qty * product.price).toLocaleString("id-ID", { styles: "currency", currency: "USD" })}</td>
+                      <td>
+                        ${" "}
+                        {(item.qty * product.price).toLocaleString("id-ID", {
+                          styles: "currency",
+                          currency: "USD",
+                        })}
+                      </td>
                     </tr>
                   );
                 })}
@@ -156,7 +183,13 @@ const ProductsPage = () => {
                   Total
                 </td>
                 <td>
-                  <b>$ {totalPrice.toLocaleString("id-ID", { styles: "currency", currency: "USD" })}</b>
+                  <b>
+                    ${" "}
+                    {totalPrice.toLocaleString("id-ID", {
+                      styles: "currency",
+                      currency: "USD",
+                    })}
+                  </b>
                 </td>
               </tr>
             </tfoot>
