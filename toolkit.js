@@ -9,6 +9,7 @@ import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
 // const cartReducer = createReducer(initialState, (builder) => {
 
 const addToCart = createAction("ADD_TO_CART");
+const login = createAction("CREATE_SESSION");
 
 const cartReducer = createReducer([], (builder) => {
   builder.addCase(addToCart, (state, action) => {
@@ -16,12 +17,20 @@ const cartReducer = createReducer([], (builder) => {
     // state.cart = [...state.cart, action.payload];
   });
 });
+const loginReducer = createReducer({ status: false }, (builder) => {
+  builder.addCase(login, (state, action) => {
+    state.status = true;
+  });
+});
 
 const store = configureStore({
   reducer: {
+    login: loginReducer,
     cart: cartReducer,
   },
 });
+
+console.log("on create store : ", store.getState());
 
 store.subscribe(() => {
   console.log("on subscribe : ", store.getState());
@@ -29,4 +38,4 @@ store.subscribe(() => {
 
 const action1 = addToCart({ id: 1, qty: 20 });
 store.dispatch(action1);
-// store.dispatch(action);
+store.dispatch(login());
