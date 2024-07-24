@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 const TableCart = (props) => {
@@ -18,6 +18,14 @@ const TableCart = (props) => {
     }
     // cart itu adalah dependency atau perubahan apa yang kita pantau, jika cartnya berubah maka akan mengubah sesuatu yang diubah itu statenya
   }, [cart, products]);
+  const totalPriceRef = useRef(null);
+  useEffect(() => {
+    if (cart.length > 0) {
+      totalPriceRef.current.style.display = "table-row";
+    } else {
+      totalPriceRef.current.style.display = "none";
+    }
+  }, [cart]);
   return (
     <table className="text-left border-separate table-auto border-spacing-x-5">
       <thead>

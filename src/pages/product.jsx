@@ -4,6 +4,8 @@ import Button from "../components/Elements/Button";
 import { getProducts } from "../services/product.service";
 import { getUsername } from "../services/auth.service";
 import { useLogin } from "../hooks/useLogin";
+import TableCart from "../components/Fragments/TableCart";
+import Navbar from "../components/Layouts/Navbar";
 // import Counter from "../components/Fragments/Counter";
 
 // import Counter from "../components/Fragments/Counter";
@@ -39,7 +41,8 @@ const ProductsPage = () => {
   // const [totalPrice, setTotalPrice] = useState(0);
   const [products, setProducts] = useState([]);
   // const [username, setUsername] = useState("");
-  const username = useLogin();
+  // const username = useLogin();
+  useLogin();
   // useEffect(() => {
   //   // didMount()
   //   setCart(JSON.parse(localStorage.getItem("cart")) || []);
@@ -70,11 +73,11 @@ const ProductsPage = () => {
   //   }
   //   // cart itu adalah dependency atau perubahan apa yang kita pantau, jika cartnya berubah maka akan mengubah sesuatu yang diubah itu statenya
   // }, [cart, products]);
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("password");
-    window.location.href = "/login";
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("password");
+  //   window.location.href = "/login";
+  // };
 
   // hooks tools react menggunakan useState
   // const handleAddToCart = (id) => {
@@ -93,7 +96,7 @@ const ProductsPage = () => {
   //   // setCart(cartRef.current);
   //   localStorage.setItem("cart", JSON.stringify(cartRef.current));
   // };
-  const totalPriceRef = useRef(null);
+  // const totalPriceRef = useRef(null);
   // useEffect(() => {
   //   if (cart.length > 0) {
   //     totalPriceRef.current.style.display = "table-row";
@@ -104,12 +107,7 @@ const ProductsPage = () => {
 
   return (
     <Fragment>
-      <div className="flex items-center justify-end h-20 px-10 text-white bg-blue-600">
-        {username}
-        <Button classname="ml-5 bg-black " onClick={handleLogout}>
-          Logout
-        </Button>
-      </div>
+      <Navbar></Navbar>
       <div className="flex justify-center py-5">
         <div className="flex flex-wrap w-4/6 ">
           {products.length > 0 &&
@@ -125,6 +123,7 @@ const ProductsPage = () => {
         </div>
         <div className="w-2/6">
           <h1 className="mb-2 ml-5 text-3xl font-bold text-blue-600">Cart</h1>
+          <TableCart products={products}></TableCart>
         </div>
         {/* <div>
         <Counter></Counter>
